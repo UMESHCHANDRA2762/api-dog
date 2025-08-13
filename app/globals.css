@@ -1,26 +1,66 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Use a more modern box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/*
+  Set a base background color and ensure the html/body take up full height.
+*/
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  height: 100vh;
+  overflow: hidden; /* Prevent body scrolling */
+}
+
+/* Custom styles for the dashboard layout */
+.dashboard-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-row {
+  flex-grow: 1;
+  overflow: hidden; /* Prevent row from overflowing */
+}
+
+.main-content-row > .col,
+.main-content-row > .col-auto {
+  height: 100%;
+  overflow-y: auto; /* Allow individual columns to scroll if needed */
+}
+
+.primary-sidebar {
+  background-color: #f8f9fa;
+}
+
+.secondary-sidebar {
+  background-color: #ffffff;
+  border-right: 1px solid #dee2e6;
+}
+
+.main-area {
+  background-color: #f8f9fa;
+}
+
+.main-header,
+.app-footer {
+  background-color: #ffffff;
+  border-color: #dee2e6 !important;
+}
+
+/* Active Nav Link Style */
+
+
+.tree-item {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+}
+.tree-item:hover {
+  background-color: #f1f5f9;
 }
