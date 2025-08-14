@@ -38,8 +38,9 @@ body {
   background-color: #f8f9fa;
 }
 
+/* AFTER */
 .secondary-sidebar {
-  background-color: #ffffff;
+  background-color: #f8f9fa; /* Match primary sidebar background */
   border-right: 1px solid #dee2e6;
 }
 
@@ -64,3 +65,191 @@ body {
 .tree-item:hover {
   background-color: #f1f5f9;
 }
+/* Add this CSS */
+.secondary-sidebar-resizable {
+  /* These two lines enable resizing */
+  resize: horizontal;
+  overflow: auto;
+
+  /* Set background and border */
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+
+  /* Set size constraints */
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.main-area {
+  background-color: #ffffff; /* Make main content white */
+}
+/* Add these new rules */
+
+/* This styles our new container to be a flexbox row */
+.resizable-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff; /* Sidebar background color */
+}
+
+/* This ensures the panels within the container behave correctly */
+.resizable-panel {
+  height: 100%;
+  overflow: auto; /* Use auto for scrollbars if content overflows */
+}
+
+/* THIS IS THE MOST IMPORTANT PART FOR THE LINE */
+.resizable-handle-custom {
+  width: 1.5px;
+  cursor: col-resize;
+  background-color: #000000; /* A neutral gray */
+  transition: background-color 0.2s ease;
+}
+/* Add these styles to app/globals.css */
+.main-content-tabs {
+  border-bottom: none;
+  padding: 0.5rem 0.75rem;
+  gap: 0.5rem;
+}
+
+.dashboard-layout,
+.main-content-row {
+  height: 100vh; /* Make layout full height */
+
+}
+
+.primary-sidebar {
+  padding: 0; /* Remove space between navbar and sidebar */
+  margin: 0;
+  background-color: #f8f9fa; /* Optional matching background */
+}
+
+.secondary-sidebar {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Make ResizableContainer fill height */
+.resizable-container {
+  height: calc(100vh - var(--navbar-height));
+}
+.secondary-sidebar-resizable {
+  /* These two lines enable resizing */
+  resize: horizontal;
+  overflow: auto;
+
+  /* Set background and border */
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+
+  /* Set size constraints */
+  min-width: 200px;
+  max-width: 500px;
+}
+/* Add this new class to your CSS file */
+.content-card {
+  /* This creates the curved corners */
+  border-radius: 0.75rem; /* 12px */
+
+  /* This is crucial: it clips the sharp corners of the inner panels */
+  overflow: hidden;
+
+  /* Optional: These add to the "Apple card" aesthetic */
+  border: 1px solid #e9ecef; /* A very light border */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); /* A soft shadow */
+} .content-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+/* Add this rule to your global CSS file */
+.user-icon-btn {
+  border-radius: 50% !important; /* Makes the button a circle */
+  width: 40px;                   /* Ensures it's a perfect circle */
+  height: 40px;                  /* Ensures it's a perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef; /* A light grey background */
+}
+
+.user-icon-btn:hover {
+  background-color: #dee2e6; /* A slightly darker grey on hover */
+}
+/*
+ * FLOATING CARD TABS STYLES
+ */
+
+/* Add padding to the main content area to make space for the floating card's shadow */
+.main-area {
+  padding: 1rem;
+  background-color:#ffffff; /* A neutral background to make the card stand out */
+}
+
+/* Tab container - Styled as a floating card */
+.main-content-tabs {
+  /* Card Shape & Spacing */
+  border-radius: 0.75rem; /* 12px for a nice curve */
+  padding: 0.5rem;
+  
+  /* Floating Effect */
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+
+  /* Overrides */
+  border-bottom: none; /* Remove the previous bottom border */
+  gap: 0; /* Let the nav-items handle their own margin */
+  background-color: #ffffff;
+}
+
+/* Add a small margin to the right of each tab item for spacing */
+.main-content-tabs .nav-item {
+  margin-right: 0.25rem;
+}
+
+/* Ensure the last item doesn't have extra margin */
+.main-content-tabs .nav-item:last-child {
+  margin-right: 0;
+}
+
+/* Keep the rest of your .nav-link and button styles as they are */
+.main-content-tabs .nav-link {
+  border-radius: 50px; /* pill shape */
+  padding: 0.4rem 1rem;
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.main-content-tabs .nav-link:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.main-content-tabs .nav-link.active {
+  background-color: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+  box-shadow: 0 4px 8px rgba(13,110,253,0.3);
+}
+
+/* Add tab "+" button style */
+#add-tab-button .nav-link {
+  background-color: #198754;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 0.4rem 0.8rem;
+}
+
+#add-tab-button .nav-link:hover {
+  background-color: #157347;
+}
+

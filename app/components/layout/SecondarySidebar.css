@@ -1,0 +1,37 @@
+/*
+ * STYLES FOR PROFESSIONALLY DESIGNED SECONDARY SIDEBAR
+ */
+
+.secondary-sidebar-pro .input-group-text {
+  background-color: #fff;
+  border-right: none;
+}
+
+.secondary-sidebar-pro .form-control {
+  border-left: none;
+}
+
+.secondary-sidebar-pro .form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+/* Enhanced Tree Item Styles */
+.secondary-sidebar-pro .tree-item {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.secondary-sidebar-pro .tree-item:hover {
+  background-color: #f1f5f9; /* A light grey for hover */
+}
+
+/* Style for the active/selected tree item */
+.secondary-sidebar-pro .active-tree-item {
+  background-color: #e7f1ff; /* A light blue background */
+  color: #0d6efd; /* Primary blue text color */
+  font-weight: 500;
+}
