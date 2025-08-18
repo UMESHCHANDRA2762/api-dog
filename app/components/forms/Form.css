@@ -1,0 +1,54 @@
+/* src/components/forms/Form.css */
+
+/* The main container for the form, giving it a structured "page" feel */
+.form-wrapper {
+  background-color: #ffffff; /* A clean white background */
+  border: 1px solid #dee2e6; /* A standard, clean border */
+  border-radius: 0.5rem; /* 8px rounded corners */
+  overflow: hidden; /* Ensures child elements conform to the rounded corners */
+}
+
+/* The header area for the form title */
+.form-header {
+  padding: 1rem 1.5rem; /* More horizontal than vertical padding */
+  background-color: #f8f9fa; /* A very light grey to lift the header */
+  border-bottom: 1px solid #dee2e6;
+}
+
+.form-header h3 {
+  margin-bottom: 0;
+  font-size: 1.2rem; /* A comfortable title size */
+  font-weight: 500; /* Not too bold, not too light */
+  color: #212529;
+}
+
+/* The main area where all form fields will live */
+.form-body {
+  padding: 1.5rem;
+}
+
+/* A header for a group of related fields */
+.form-section-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  margin-top: 1.5rem; /* Add space above, except for the first one */
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef; /* A subtle underline separator */
+}
+
+/* Clear the top margin for the very first section header */
+.form-body h4:first-of-type {
+  margin-top: 0;
+}
+
+/* The footer area for action buttons */
+.form-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end; /* Push buttons to the right */
+  gap: 0.5rem; /* Add a little space between buttons */
+}

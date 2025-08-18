@@ -1,0 +1,84 @@
+/*
+ * STYLES FOR PROFESSIONALLY DESIGNED SECONDARY SIDEBAR
+ */
+
+.secondary-sidebar-pro .input-group-text {
+  background-color: #fff;
+  border-right: none;
+}
+
+.secondary-sidebar-pro .form-control {
+  border-left: none;
+}
+
+.secondary-sidebar-pro .form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+/* Enhanced Tree Item Styles */
+.secondary-sidebar-pro .tree-item {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.secondary-sidebar-pro .tree-item:hover {
+  background-color: #f1f5f9; /* A light grey for hover */
+}
+
+/* Style for the active/selected tree item */
+.secondary-sidebar-pro .active-tree-item {
+  background-color: #e7f1ff; /* A light blue background */
+  color: #0d6efd; /* Primary blue text color */
+  font-weight: 500;
+}
+/* src/components/layout/secondary-sidebar.css */
+
+/* --- Base Item Style --- */
+.tree-item {
+  border: 0 !important;
+  padding: 0.6rem 1rem !important;
+  margin-bottom: 4px !important;
+  color: #495057;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* --- Hover Effect --- */
+.tree-item:hover {
+  background-color: #e7f1ff; 
+  color: #0d6efd;
+}
+
+/* --- Active State (when an item is clicked) --- */
+.tree-item.active {
+  background-color: #e7f1ff; 
+  color: #0d6efd;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 0 #0d6efd;
+}
+/* src/components/layout/secondary-sidebar.css */
+.tree-item {
+  border: 0 !important;
+  padding: 0.6rem 1rem !important;
+  margin-bottom: 4px !important;
+  color: #495057;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.tree-item:hover {
+  background-color: #e7f1ff; 
+  color: #0d6efd;
+}
+.tree-item.active {
+  background-color: #e7f1ff; 
+  color: #0d6efd;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 0 #0d6efd;
+}
