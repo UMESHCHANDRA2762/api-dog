@@ -1,6 +1,8 @@
+// src/components/layout/ResizableContainer.tsx
 "use client";
 
 import React, { useState, useRef, useCallback, ReactNode } from 'react';
+import './ResizableContainer.css'; // We'll create this CSS file
 
 type ResizableContainerProps = {
   leftPanel: ReactNode;
@@ -9,39 +11,79 @@ type ResizableContainerProps = {
 
 export function ResizableContainer({ leftPanel, rightPanel }: ResizableContainerProps) {
   const [sidebarWidth, setSidebarWidth] = useState(280);
-  const containerRef = useRef<HTMLDivElement>(null);
+  // A ref to track the dragging state
+  const isDraggingRef = useRef(false);
+  // A ref to store the animation frame ID
+  const animationFrameRef = useRef(0);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    const startX = e.clientX;
+  const handleDragStart = useCallback((startClientX: number) => {
+    isDraggingRef.current = true;
     const startWidth = sidebarWidth;
 
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      const newWidth = startWidth + moveEvent.clientX - startX;
-      if (newWidth >= 200 && newWidth <= 500) {
-        setSidebarWidth(newWidth);
-      }
+    // Add a class to the body to show the resize cursor everywhere
+    document.body.classList.add('resizing');
+
+    const handleDragMove = (currentClientX: number) => {
+      if (!isDraggingRef.current) return;
+      
+      const deltaX = currentClientX - startClientX;
+      const newWidth = startWidth + deltaX;
+
+      // Throttle state updates with requestAnimationFrame
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = requestAnimationFrame(() => {
+        // Enforce min and max width constraints
+        if (newWidth >= 200 && newWidth <= 500) {
+          setSidebarWidth(newWidth);
+        }
+      });
     };
 
-    const handleMouseUp = () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+    const handleDragEnd = () => {
+      isDraggingRef.current = false;
+      document.body.classList.remove('resizing');
+      
+      // Clean up global event listeners
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    // Define wrapper functions to extract clientX
+    const onMouseMove = (e: MouseEvent) => handleDragMove(e.clientX);
+    const onTouchMove = (e: TouchEvent) => handleDragMove(e.touches[0].clientX);
+    const onMouseUp = () => handleDragEnd();
+    const onTouchEnd = () => handleDragEnd();
+
+    // Attach the appropriate listeners
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('touchmove', onTouchMove);
+    window.addEventListener('touchend', onTouchEnd);
   }, [sidebarWidth]);
+  
+  // Specific handlers for mouse and touch start events
+  const onMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleDragStart(e.clientX);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    handleDragStart(e.touches[0].clientX);
+  };
 
   return (
-   <div className="resizable-container content-card" ref={containerRef}>
-      <div className="resizable-panel" style={{ width: `${sidebarWidth}px` }}>
+    <div className="resizable-container">
+      <div className="resizable-panel" style={{ width: `${sidebarWidth}px`, flexShrink: 0 }}>
         {leftPanel}
       </div>
       <div
-        className="resizable-handle-custom"
-        onMouseDown={handleMouseDown}
+        className="resize-handle"
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
       />
-      <div className="resizable-panel flex-grow-1">
+      <div className="resizable-panel" style={{ flexGrow: 1, minWidth: 0 }}>
         {rightPanel}
       </div>
     </div>

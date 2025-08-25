@@ -1,61 +1,63 @@
+// src/app/page.tsx (or your dashboard page)
 "use client";
 
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { PrimarySidebar } from "./components/layout/primary-sidebar";
 import { SecondarySidebar } from "./components/layout/secondary-sidebar";
-import { MainContent } from "./components/layout/main-content"; // REMOVED: TabData from import
+import { MainContent } from "./components/layout/main-content";
 import { Footer } from "./components/layout/footer";
 import { TopNavbar } from "./components/layout/TopNavbar";
 import { ResizableContainer } from "./components/layout/ResizableContainer";
-import { erpData } from "./components/erp-data";
+import { erpData, ModuleData } from "./components/erp-data";
+import { getComponentForLabel } from "./lib/component-mapper"; // Assuming you have this mapper
 
 export default function DashboardPage() {
-  const [selectedModuleKey, setSelectedModuleKey] = useState("Organization");
-  
-  // REMOVED: State for tabs and activeKey is gone.
-  // NEW: State to hold the single active component.
+  const [selectedModuleKey, setSelectedModuleKey] = useState<string>(Object.keys(erpData)[0]);
+  const selectedModule = erpData[selectedModuleKey];
+
   const [activeComponent, setActiveComponent] = useState<React.ReactNode>(
-    <h2>Welcome to your Dashboard!</h2>
+    // Set initial content based on the first item of the first module
+    getComponentForLabel(selectedModule.tree[0].label)
   );
 
   const handleModuleSelect = (moduleKey: string) => {
     setSelectedModuleKey(moduleKey);
+    // When a new module is selected, default to its first item
+    const newModule = erpData[moduleKey];
+    if (newModule && newModule.tree.length > 0) {
+      setActiveComponent(getComponentForLabel(newModule.tree[0].label));
+    }
   };
 
-  // UPDATED: This function now simply sets the active component.
   const handleSetContent = (component: React.ReactNode) => {
     setActiveComponent(component);
   };
 
-  // REMOVED: handleCloseTab is no longer needed.
-
   return (
-    <Container fluid className="p-0 d-flex flex-column vh-100">
+    <Container fluid className="p-0 app-container">
       <TopNavbar />
-      <Row className="g-0 flex-grow-1" style={{ overflow: 'hidden' }}>
-        <Col xs="auto">
+      
+      <Row className="g-0 main-layout-row">
+        <Col xs="auto" className="primary-sidebar-col">
           <PrimarySidebar
             onModuleSelect={handleModuleSelect}
             activeModuleKey={selectedModuleKey}
           />
         </Col>
-        <Col className="p-0 d-flex flex-column">
+
+        <Col className="content-col">
           <ResizableContainer
             leftPanel={
-              // UPDATED: Pass the new handleSetContent function
-              <SecondarySidebar 
-                moduleData={erpData[selectedModuleKey]}
-                onSetContent={handleSetContent} 
+              <SecondarySidebar
+                moduleData={selectedModule}
+                onSetContent={handleSetContent}
               />
             }
             rightPanel={
-              <div className="d-flex flex-column h-100">
-                <div className="flex-grow-1" style={{ overflowY: 'auto' }}>
-                  {/* UPDATED: Pass the single active component */}
-                  <MainContent 
-                    activeComponent={activeComponent}
-                  />
+              <div className="right-panel-container">
+                <div className="main-content-wrapper">
+                  <MainContent activeComponent={activeComponent} />
                 </div>
                 <Footer />
               </div>

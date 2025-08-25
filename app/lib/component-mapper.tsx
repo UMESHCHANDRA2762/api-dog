@@ -1,7 +1,7 @@
-// src/lib/component-mapper.tsx
-
 import { DefineOrganizationForm } from "../components/forms/DefineOrganizationForm";
-import { DefineCompanyCodeForm } from "../components/forms/DefineCompanyCodeForm"; // NEW: Import the new form
+import { DefineCompanyCodeForm } from "../components/forms/DefineCompanyCodeForm";
+import { AssignCompanyToOrganizationForm } from "../components/forms/AssignCompanyToOrganizationForm";
+import { DefineBusinessAreaForm } from "../components/forms/DefineBusinessAreaForm"; // NEW: Import the new form
 
 // This function maps a sidebar label to a specific React component.
 export const getComponentForLabel = (label: string) => {
@@ -9,9 +9,11 @@ export const getComponentForLabel = (label: string) => {
     case "Define Organization (Company)":
       return <DefineOrganizationForm />;
     
-    // NEW: Added the case for the new form
     case "Define Company (Company Code)":
       return <DefineCompanyCodeForm />;
+
+    case "Assign Company to Organization":
+      return <AssignCompanyToOrganizationForm />;
 
     default:
       // This is the fallback for any other sidebar item that doesn't have a form yet
